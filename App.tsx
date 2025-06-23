@@ -37,7 +37,6 @@ function App() {
   );
 }
 
-// Wrap App with AuthProvider
 const AppWithProvider = () => (
   <AuthProvider>
     <App />
