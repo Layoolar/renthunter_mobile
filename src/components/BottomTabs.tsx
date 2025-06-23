@@ -17,7 +17,7 @@ const Tab = createBottomTabNavigator();
 export default function BottomTabs({
   onLogout,
 }: {
-  onLogout: Dispatch<SetStateAction<boolean>>;
+  onLogout: (value: boolean) => void;
 }) {
   const insets = useSafeAreaInsets();
 

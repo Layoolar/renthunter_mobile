@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   ScrollView,
@@ -7,34 +7,35 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
-} from 'react-native';
-import { Link, useRouter } from 'expo-router';
-import { useNavigation } from '@react-navigation/native';
-import InputField from '../../components/reuseables/InputField';
-import CustomButton from '../../components/reuseables/CustomButton';
-import DividerWithText from '../../components/reuseables/DividerWithText';
-import SocialLoginButton from '../../components/reuseables/SocialLoginButton';
-import { navigate } from 'expo-router/build/global-state/routing';
+} from "react-native";
+import { Link, useRouter } from "expo-router";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
+import InputField from "../../components/reuseables/InputField";
+import CustomButton from "../../components/reuseables/CustomButton";
+import DividerWithText from "../../components/reuseables/DividerWithText";
+import SocialLoginButton from "../../components/reuseables/SocialLoginButton";
+import { useAuth } from "../../context/AuthContext";
+import { AuthStackParamList } from "../../types/screen";
 
 export default function SignupScreen() {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<AuthStackParamList, "Signup">>();
   const router = useRouter();
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { setLoggedIn } = useAuth();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSignUp = () => {
-    // Replace this with real sign-up logic
-    alert('Signing up...');
-    // Navigate to home or account screen after successful signup
-    // router.push('/home');
+  const handleSignup = () => {
+    setLoggedIn(true);
   };
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {/* Title */}
@@ -76,13 +77,13 @@ export default function SignupScreen() {
         />
 
         {/* Sign Up Button */}
-        <CustomButton title="Sign Up" onPress={handleSignUp} />
+        <CustomButton title="Sign Up" onPress={handleSignup} />
 
         {/* Continue with Google */}
         <SocialLoginButton
           provider="google"
           title="Continue with Google"
-          onPress={() => alert('Google login')}
+          onPress={() => alert("Google login")}
         />
 
         {/* Divider */}
@@ -92,11 +93,11 @@ export default function SignupScreen() {
         <View style={styles.loginLinkContainer}>
           <Text style={styles.loginText}>Already have an account?</Text>
         </View>
-         <View style={styles.loginFlex}>
-             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-             <Text style={styles.loginButton}>Log In</Text>
+        <View style={styles.loginFlex}>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.loginButton}>Log In</Text>
           </TouchableOpacity>
-          </View>
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -105,41 +106,41 @@ export default function SignupScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   scrollContainer: {
     flexGrow: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     padding: 20,
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     marginBottom: 30,
-    color: '#000',
+    color: "#000",
   },
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 15,
   },
   loginLinkContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
     marginTop: 5,
   },
   loginText: {
-    color: '#666',
+    color: "#666",
     fontSize: 14,
     marginRight: 5,
   },
   loginFlex: {
-     flexDirection: 'row', 
-     justifyContent: 'center'
+    flexDirection: "row",
+    justifyContent: "center",
   },
   loginButton: {
-    color: '#0D1B2A',
+    color: "#0D1B2A",
     fontSize: 14,
-    fontWeight: '600'
+    fontWeight: "600",
   },
 });

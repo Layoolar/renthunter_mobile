@@ -6,7 +6,7 @@ import { View, ActivityIndicator } from "react-native";
 
 type Props = {
   routePath: string;
-  onLogout?: Dispatch<SetStateAction<boolean>>;
+  onLogout?: (value: boolean) => void;
 };
 
 const allowedPaths = [
